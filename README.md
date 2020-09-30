@@ -6,6 +6,8 @@ Esta sendo usando InMemoryDatabase para persistencia, EF Core
 
 Dividido em 3 projetos, API, Business (Services) e Data (Persistencia)
 
+Um projeto usando XUnit para testes na camada de services com Persistencia em memoria.
+
 Todos Ids sao GUID
 
 # API Filmes:
