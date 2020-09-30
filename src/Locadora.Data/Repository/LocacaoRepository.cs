@@ -21,6 +21,13 @@ namespace Locadora.Data.Repository
                 .Where(c => c.ClienteId == ClienteId && c.FilmeId == FilmeId).ToListAsync();
 
         }
+
+        public async Task<IEnumerable<Locacao>> ObterLocacoesPorClienteId(Guid ClienteId)
+        {
+           return await  Db.Locacoes.AsNoTracking()
+                .Where(c => c.ClienteId == ClienteId && c.Devolucao == DateTime.MinValue).ToListAsync();
+
+        }
         
     }
 }

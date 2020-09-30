@@ -41,10 +41,10 @@ namespace Locadora.Business.Services
                 throw new Exception("Cliente não encontrado");
 
             if (_locacaoRepository.VerificarSeClienteJaLocouFilme(locacao.ClienteId, locacao.FilmeId).Result.Any())
-                throw new Exception($"O Filme {filme.Nome} já foi locado por {cliente.Nome}");
+                throw new Exception("O Filme já foi locado anteriormente");
 
             if (filme.QuantidadeDisponivel ==0)
-                throw new Exception($"O Filme {filme.Nome} está indisponivel");
+                throw new Exception("O Filme esta indisponivel");
 
             
 
@@ -57,24 +57,24 @@ namespace Locadora.Business.Services
 
         public async Task<String> Devolver(Locacao locacao)
         {
-            var mensagem = "Devolução realizada com sucesso";
+            var mensagem = "Devolucao realizada com sucesso";
 
             if (locacao.Id   == Guid.Empty)
-                throw new Exception("Locação Inválida");
+                throw new Exception("Locação Invalida");
 
             var devolucao = await _locacaoRepository.ObterPorId(locacao.Id);
             if (devolucao == null)
-                throw new Exception("Locação não encontrada");
+                throw new Exception("Locacao nao encontrada");
 
             if (devolucao.Devolucao != DateTime.MinValue)
-                throw new Exception("Devolução já realizada");
+                throw new Exception("Devolucao ja realizada");
 
             var filme = await _filmeRepository.ObterPorId(devolucao.FilmeId);
             var dataDevolucao = DateTime.Today;
             var dataMaximaDevolucao = devolucao.Inicio.AddDays(QTDE_DIAS_DEVOLUCAO);
 
             if (dataDevolucao > dataMaximaDevolucao)
-                mensagem = "Devolução com atraso";
+                mensagem = "Devolucao com atraso";
 
             devolucao.Devolucao = DateTime.Now;
             await _locacaoRepository.Atualizar(devolucao);

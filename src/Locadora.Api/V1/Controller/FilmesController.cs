@@ -14,10 +14,12 @@ namespace Locadora.Api.V1.Controller
     public class FilmesController: MainController
     {
         private readonly IFilmeRepository _filmeRepository;
+        private readonly IFilmeService _filmeService;
 
-        public FilmesController(IFilmeRepository filmeRepository)
+        public FilmesController(IFilmeRepository filmeRepository, IFilmeService filmeService)
         {
             _filmeRepository = filmeRepository;
+            _filmeService = filmeService;
         }
 
         [AllowAnonymous]
@@ -45,7 +47,7 @@ namespace Locadora.Api.V1.Controller
                 if (filme == null)
                     return BadRequest();
 
-                await _filmeRepository.Adicionar(filme);
+                await _filmeService.Cadastrar(filme);
 
                 return filme;
             }

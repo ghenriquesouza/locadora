@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Locadora.Business.Interfaces
 {
-    public interface ILocacaoService: IDisposable
+    public interface IFilmeService : IDisposable    
     {
-        Task Alugar(Locacao locacao);
-
-        Task<string> Devolver(Locacao locacao);
-
-
+        Task Cadastrar(Filme filme);
     }
 }

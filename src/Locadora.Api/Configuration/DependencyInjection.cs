@@ -29,6 +29,7 @@ namespace Locadora.Api.Configuration
 
             services.AddScoped<ILocacaoService, LocacaoService>();
             services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<IFilmeService, FilmeService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

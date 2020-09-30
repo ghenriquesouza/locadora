@@ -45,6 +45,9 @@ namespace Locadora.Api.V1.Controller
         {
             try
             {
+                if (cliente == null)
+                    return BadRequest();
+
                 await _clientService.Cadastrar(cliente);
 
                 return cliente;

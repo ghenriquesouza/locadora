@@ -9,5 +9,7 @@ namespace Locadora.Business.Interfaces
     public interface ILocacaoRepository: IRepository<Locacao>
     {
         Task<IEnumerable<Locacao>> VerificarSeClienteJaLocouFilme(Guid ClienteId, Guid FilmeId);
+
+        Task<IEnumerable<Locacao>> ObterLocacoesPorClienteId(Guid ClienteId);
     }
 }

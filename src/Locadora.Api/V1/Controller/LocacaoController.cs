@@ -33,11 +33,14 @@ namespace Locadora.Api.V1.Controller
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<Locacao>> ObterPorId(Guid id)
         {
-            var fornecedor = await _LocacaoRepository.ObterPorId(id);
+            if (id == Guid.Empty)
+                return BadRequest();
 
-            if (fornecedor == null) return NotFound();
+            var locacoes = await _LocacaoRepository.ObterPorId(id);
 
-            return fornecedor;
+            if (locacoes == null) return NotFound();
+
+            return locacoes;
         }
         [AllowAnonymous]
         [HttpPost("Alugar")]
@@ -65,7 +68,7 @@ namespace Locadora.Api.V1.Controller
         {
             try
             {
-                if (locacao.Id == Guid.Empty)
+                if (locacao == null)
                     return BadRequest();
 
                 return await _locacaoService.Devolver(locacao);
@@ -77,6 +80,20 @@ namespace Locadora.Api.V1.Controller
 
 
 
+        }
+
+        [AllowAnonymous]
+        [HttpGet("cliente/{id:guid}")]
+        public async Task<ActionResult<IEnumerable<Locacao>>> ObterPorCliente(Guid id)
+        {
+            if (id == Guid.Empty)
+                return BadRequest();
+
+            var locacoes = await _LocacaoRepository.ObterLocacoesPorClienteId(id);
+
+            if (locacoes == null) return NotFound();
+
+            return Ok(locacoes);
         }
     }
 }
