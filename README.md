@@ -1,4 +1,4 @@
-# locadora
+# Locadora
 
 Projeto de teste sobre locadora com endpoints para Filmes, Clientes e Locacoes 
 
